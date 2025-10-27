@@ -1,0 +1,9 @@
+cd C:\gis_project
+conda create -n gis python=3.11 -c conda-forge -y
+conda activate gis
+conda install -c conda-forge flask geopandas rasterio gdal matplotlib fiona shapely pyproj pyogrio sqlalchemy -y
+pip install psycopg2-binary
+gdal_translate -of VRT -ot Byte -scale dem.tif temp.vrt
+gdal2tiles.py -z 0-12 temp.vrt static/tiles
+python app.py
+http://127.0.0.1:5000
